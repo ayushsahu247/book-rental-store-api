@@ -1,0 +1,26 @@
+The registration, login, and logout functionalities are in place.
+Though, if you go to the login url while you are already logged in, it says
+{
+    "detail": "CSRF Failed: CSRF token missing."
+}
+unless you add a header called X-Csrftoken with the value: csrftoken's value from the cookies.
+I need to automate it, of course. Or maybe when the frontend calls that endpoint, they (I, in this case) will take care of it.
+Update: Confirmed that the frontend will take care of it.
+
+But now, lets work on books.
+A user should be able to add books.
+They should't be able to add genre.
+But they should be able to get all genre.
+
+How do i want to let users add genres in their books?
+im thinking- a comma separated string of genre ids.
+1. Let them do it while putting it up. So just a new field called genres.
+2. Let them do it later. New api for this, pass the {book_id: x, genres: "1,2,3"} in this fashion.
+to delete genres, just put a (-) sign in front of it - 
+like -  genres: "1,2,-4" means you want to add 1 and 2 to the book and remove -4 from the book.
+
+Now, a user should be able to get books by genre
+Just add genre_id in the body of the /books/books request.
+If not added, it will show all books, and if added it will show books of that genre.
+
+When you come across a book you wanna rent, you would want to contact the user - for that, I added a contact field in the app_user model which is an extension of django's user model (which is sick by the way)
